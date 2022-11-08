@@ -1,19 +1,24 @@
-import React from 'react'
+import React from "react";
 
 function Card(props) {
   return (
-    <div className='m-3'>
-        <div class="card text-bg-light mb-3" style={{ width: "18rem" }}>
-        <div class="card-header">Language: {props.language}</div>
+    <div className="m-3">
+      <div class="card" style={{width: '18rem'}}>
+        <img src={props.image} class="card-img-top" alt="..." />
         <div class="card-body">
-          <h5 class="card-title">Edition: {props.edition}</h5>
-          <p class="card-text">
-          Price: {props.price}USD
-          </p>
+          <h5 class="card-title">{props.title}</h5>
+          <p class="card-text">{props.description}</p>
+          <a href="google.com" class="btn btn-primary">
+            Go somewhere
+          </a>
         </div>
       </div>
+
+      <div>
+        
+      </div>
     </div>
-  )
+  );
 }
 
-export default Card
+export default Card;

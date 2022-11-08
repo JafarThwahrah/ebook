@@ -4,40 +4,56 @@ import Filter from "../components/Filter";
 import Cards from "../components/Cards";
 import Jsondata from "../data.json";
 import { useState } from "react";
+import axios from "axios";
 
 function Home() {
-  const [data, setData] = useState(Jsondata);
+  const [data, setData] = useState(null);
   const [searched, setSearched] = useState(null);
   const [selected, setSelected] = useState(null);
-  const [filteredData, setFilteredData] = useState(data);
-
-  // useEffect(()=>{
-  //     let newData =
-  //     !(searched || selected)
-  //     ? data.eBooks
-  //     :""
-  //     setFilteredData(newData)
-  //   },[]);
+  const [filteredData, setFilteredData] = useState();
 
   useEffect(() => {
-    let newData = {};
-    newData.eBooks = data.eBooks.filter((book) => {
-      return book.language === selected;
-    });
+    const URL = "https://ghibliapi.herokuapp.com/films";
 
-    setFilteredData(newData);
-  }, [selected]);
+    let newData = async () => {
+      try {
+        axios.get(URL).then((response) => {
+          setFilteredData(response);
+          console.log(data);
+          console.log(response);
 
-  useEffect(() => {
-    let newData = {};
-    newData.eBooks = searched
-      ? data.eBooks.filter((book) => {
-          return book.language.includes(searched);
-        })
-      : data.eBooks;
+        });
+      } catch (err) {
+        if (err.response) {
+          console.log(err.response.data);
+        } else {
+          console.log(`Error: ${err.message}`);
+        }
+      }
+    };
 
-    setFilteredData(newData);
-  }, [searched]);
+    newData();
+  }, []);
+
+  // useEffect(() => {
+  //   let newData = {};
+  //   newData.eBooks = data.eBooks.filter((book) => {
+  //     return book.language === selected;
+  //   });
+
+  //   setFilteredData(newData);
+  // }, [selected]);
+
+  // useEffect(() => {
+  //   let newData = {};
+  //   newData.eBooks = searched
+  //     ? data.eBooks.filter((book) => {
+  //         return book.language.includes(searched);
+  //       })
+  //     : data.eBooks;
+
+  //   setFilteredData(newData);
+  // }, [searched]);
 
   console.log(filteredData);
 

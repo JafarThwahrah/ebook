@@ -5,13 +5,14 @@ function Cards(props) {
   return (
     <div className="d-flex justify-content-around flex-wrap">
       {console.log(props)}
-      {props.data.eBooks.map((book) => {
+      {props.data?.data.map((movie) => {
         return (
           <Card
             key={Math.random()}
-            language={book.language}
-            edition={book.edition}
-            price={book.price}
+            image={movie.image}
+            title={movie.title}
+            director={movie.director}
+            description={movie.description}
           />
         );
       })}
